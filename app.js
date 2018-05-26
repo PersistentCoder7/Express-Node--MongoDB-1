@@ -10,8 +10,16 @@ const buildUrl = (version, path) => `/api/${version}/${path}`
 const STUDENT_BASE_URL = buildUrl('v1', 'students');
 
 
+server.use(express.static('public'));
+
+
+server.get('/download/images/:imageName', (req,res) =>{
+  console.log(__dirname + '/public/images/'+req.params.imageName);
+  res.sendfile(__dirname + '/public/images/'+req.params.imageName);
+} )
+
 server.use(bodyParser.urlencoded({
-  extended: true
+  extended: true 
 }));
 server.use(bodyParser.json());
 server.use(morgan('combined'));
