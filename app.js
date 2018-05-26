@@ -50,8 +50,14 @@ server.delete(STUDENT_BASE_URL, (req, res) => {
 });
 
 
-server.get('/route-handers', (req,res) => {
-  
+server.get('/route-handlers', (req,res, next) => {
+  res.send('learning route handler is cool');
+  next();
+}, (req,res,next) => {
+  console.log('Second route handler');
+  next();
+}, (req,res) => {
+  console.log('Third route handler');
 })
 
 
