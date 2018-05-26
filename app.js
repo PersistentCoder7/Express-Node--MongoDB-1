@@ -5,8 +5,18 @@ import studentRoute from './routes/studentroute';
 import bodyParser  from 'body-parser';
 import path from 'path';
 import students from './data/students.json';
+import https from 'https';
+import fs from 'fs';
+
+
+const options = {
+  key: fs.readFileSync(path.join('key.pem')),
+  cert: fs.readFileSync(path.join('cert.pem')),
+  passphrase: 'prabhu' 
+}
 
 const PORT = 3000;
+const TLS_PORT = 3003;
 const server = express();
 const buildUrl = (version, path) => `/api/${version}/${path}`
 const STUDENT_BASE_URL = buildUrl('v1', 'students');
@@ -58,3 +68,7 @@ server.get('/route-handlers', (req,res, next) => {
 server.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });
+
+https.createServer(options,server).listen(TLS_PORT, ()=>{
+  console.log('Https server port on 3003')
+})
