@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import _ from 'lodash';
 import studentRoute from './routes/studentroute';
+import bodyParser  from 'body-parser';
 
 const PORT = 3000;
 const server = express();
@@ -9,6 +10,10 @@ const buildUrl = (version, path) => `/api/${version}/${path}`
 const STUDENT_BASE_URL = buildUrl('v1', 'students');
 
 
+server.use(bodyParser.urlencoded({
+  extended: true
+}));
+server.use(bodyParser.json());
 server.use(morgan('combined'));
 
 

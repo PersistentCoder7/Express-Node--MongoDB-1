@@ -2,11 +2,13 @@ import express from 'express';
 import students from '../data/students.json';
 import _ from 'lodash';
 const router = express.Router();
+let studentsArray = students;
+
 
 
 router.get('/:id', (req, res) => {
   const userId = req.params.id;
-  const studentf = students.filter((data) => data.id === userId);
+  const studentf = studentsArray.filter((data) => data.id === userId);
   if (studentf) {
     res.json(studentf);
   }
@@ -18,13 +20,14 @@ router.get('/:id', (req, res) => {
 
 
 router.get('/', (req, res) => {
-  res.json(students);
+  res.json(studentsArray);
 });
 
 
 router.post('/', (req, res) => {
   console.log("handling POST request");
-  res.end();
+  studentsArray.push(req.body);
+  res.status(200).send("OK");
   //res.json(students);
 });
 
