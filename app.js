@@ -3,6 +3,8 @@ import morgan from 'morgan';
 import _ from 'lodash';
 import studentRoute from './routes/studentroute';
 import bodyParser  from 'body-parser';
+import path from 'path';
+import students from './data/students.json';
 
 const PORT = 3000;
 const server = express();
@@ -11,6 +13,15 @@ const STUDENT_BASE_URL = buildUrl('v1', 'students');
 
 
 server.use(express.static('public'));
+
+//Steps to setup ejs as the default templating engine
+server.set('views', path.join('views'));
+server.set('view engine', 'ejs');
+
+
+server.get('/', (req,res)=> {
+  res.render('index', {students: students});
+})
 
 
 server.get('/download/images/:imageName', (req,res) =>{
