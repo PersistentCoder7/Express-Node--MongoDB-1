@@ -1,3 +1,8 @@
-const message =  'Hello World with node.js and express';
+import express from 'express';
 
-console.log(message);
+const PORT = 3000;
+const server = express();
+
+server.listen(PORT, () => {
+  console.log(`Server started on ${PORT}`);
+})
