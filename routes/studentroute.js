@@ -1,8 +1,22 @@
 import express from 'express';
 import students from '../data/students.json';
 import _ from 'lodash';
+import mongoose from 'mongoose';
+
+
+const DB_USER='amigo';
+const DB_PASSWORD='Qwerty';
+const DB_URL = `mongodb://${DB_USER}:${DB_PASSWORD}@ds237620.mlab.com:37620/sandboxprabhu`
 const router = express.Router();
+
 let studentsArray = students;
+
+mongoose.connect(DB_URL);
+mongoose.connection.once('open',()=> console.log('We are connected to the database/...'));
+// const Cat = mongoose.model('Cat', { name: String });
+
+// const kitty = new Cat({ name: 'Zildjian' });
+// kitty.save().then(() => console.log('meow'));
 
 
 
